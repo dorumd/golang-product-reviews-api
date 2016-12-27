@@ -1,4 +1,4 @@
 app:
-  image: golang:onbuild
+  build: .
   ports:
       - "8080:8080"
