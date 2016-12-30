@@ -1,23 +1,53 @@
 package main
 
 import (
+	"./product"
+	"flag"
+	"fmt"
 	"log"
-	"net/http"
+	"os"
 )
 
-func init() {
-
-}
-
-const PORT = ":8080"
-
 func main() {
-	log.Printf("Running server on %#v", PORT)
+	var env string
 
-	// Register Handlers
-	http.HandleFunc("/api/status", ApiStatusHandler)
-	http.HandleFunc("/api/products", GetProductsHandler)
-	http.HandleFunc("/api/product-reviews/", GetProductReviewsHandler)
+	flag.StringVar(&env, "env", "dev", "ENV")
 
-	log.Fatal(http.ListenAndServe(PORT, nil))
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: %s [arguments] <command> \n", os.Args[0])
+		flag.PrintDefaults()
+	}
+
+	flag.Parse()
+
+	if flag.NArg() == 0 {
+		flag.Usage()
+		log.Fatal("Command argument required")
+	}
+	cmd := flag.Arg(0)
+
+	// Configure Server
+	service, err := product.NewProductService(env)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Run Main App
+	switch cmd {
+	case "serve":
+		if err := service.Run(); err != nil {
+			log.Fatal(err)
+		}
+	case "migrate-db":
+		if err := service.MigrateDb(); err != nil {
+			log.Fatal(err)
+		}
+	case "load-fixtures":
+		if err := service.LoadFixtures(); err != nil {
+			log.Fatal(err)
+		}
+	default:
+		flag.Usage()
+		log.Fatalf("Unknown Command: %s", cmd)
+	}
 }

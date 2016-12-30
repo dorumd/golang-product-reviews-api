@@ -1,0 +1,4 @@
+db: "root:@tcp(localhost:3306)/product-reviews-api-test?charset=utf8&parseTime=True"
+default_limit: 10
+default_offset: 10
+port: :8080

@@ -1,4 +1,12 @@
 app:
   build: .
   ports:
-      - "8080:8080"
+    - "8080:8080"
+  links:
+    - db
+
+db:
+  image: mysql
+  environment:
+    MYSQL_DATABASE: product-reviews-api
+    MYSQL_ROOT_PASSWORD: root
