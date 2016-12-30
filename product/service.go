@@ -8,9 +8,9 @@ import (
 )
 
 type Service struct {
-	Port string
+	Port   string
 	Config ServiceConfig
-	Db *gorm.DB
+	Db     *gorm.DB
 }
 
 func NewProductService(env string) (*Service, error) {
@@ -32,7 +32,7 @@ func NewProductService(env string) (*Service, error) {
 }
 
 func (s *Service) Run() (err error) {
-	resource := &Resource{ s.Db }
+	resource := &Resource{s.Db}
 
 	// Register Handlers
 	http.HandleFunc("/api/products", resource.FindAll)
@@ -51,15 +51,15 @@ func (s *Service) MigrateDb() error {
 
 func (s *Service) LoadFixtures() error {
 	dummyProduct := Product{
-		Name: "Product 1",
+		Name:             "Product 1",
 		ShortDescription: "Short Description",
-		FullDescription: "Full Product 1 Description",
-		ImageSrc: "http://img.com/test.png",
+		FullDescription:  "Full Product 1 Description",
+		ImageSrc:         "http://img.com/test.png",
 	}
 	s.Db.Create(&dummyProduct)
 
 	dummyProductReview := ProductReview{
-		Content: "Dummy Review",
+		Content:   "Dummy Review",
 		ProductID: dummyProduct.ID,
 	}
 	s.Db.Create(&dummyProductReview)

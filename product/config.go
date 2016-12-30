@@ -7,10 +7,10 @@ import (
 )
 
 type ServiceConfig struct {
-	Db string `yaml:"db"`
-	Port string `yaml:"port"`
-	DefaultLimit int `yaml:"default_limit"`
-	DefaultOffset int `yaml:"default_offset"`
+	Db            string `yaml:"db"`
+	Port          string `yaml:"port"`
+	DefaultLimit  int    `yaml:"default_limit"`
+	DefaultOffset int    `yaml:"default_offset"`
 }
 
 func NewProductServiceConfig(path string) (ServiceConfig, error) {
