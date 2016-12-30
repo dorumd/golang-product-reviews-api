@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/dorumd/golang-product-reviews-api/product"
 	"flag"
 	"fmt"
+	"gopkg.in/dorumd/golang-product-reviews-api.v2/product"
 	"log"
 	"os"
 )

@@ -20,12 +20,12 @@ func NewProductServiceConfig(path string) (ServiceConfig, error) {
 	yamlFile, err := ioutil.ReadFile(filename)
 
 	if err != nil {
-        return config, err
+		return config, err
 	}
 
 	err = yaml.Unmarshal(yamlFile, &config)
 	if err != nil {
-        return config, err
+		return config, err
 	}
 
 	return config, nil
