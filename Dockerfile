@@ -4,6 +4,11 @@ FROM golang:latest
 # Copy the local package files to the container’s workspace.
 ADD . /go/src/github.com/dorumd/golang-product-reviews-api
 
+# Install Dependencies
+RUN go get github.com/go-sql-driver/mysql && \
+    go get github.com/jinzhu/gorm && \
+    go get gopkg.in/yaml.v2
+
 # Build the golang-docker command inside the container.
 RUN go install github.com/dorumd/golang-product-reviews-api
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./product"
+	"github.com/dorumd/golang-product-reviews-api/product"
 	"flag"
 	"fmt"
 	"log"
